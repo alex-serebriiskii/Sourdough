@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+  <title>Flask-SSE Quickstart</title>
+</head>
+<body>
+  <script>
+    var bread = new EventSource("{{ url_for('sse.stream') }}");
+    bread.addEventListener('bread', function(event) {
+        var data = JSON.parse(event.data);
+        alert("The bread says " + data.message);
+    }, false);
+    bread.addEventListener('error', function(event) {
+        alert("Failed to connect to bread event stream. Is Redis running?");
+    }, false);
+const buttonClick = async () => {
+  console.log("button is clicked");
+  const response = await fetch('http://127.0.0.1:8001/button');
+  console.log(response);
+  // do something with myJson
+}
+  </script>
+  <div class="content">
+    <div class="headerbar">
+
+      <h1>Flask-SSE Quickstart</h1>
+    </div>
+    <div class="left-sidebar"></div>
+    <div class="main-content">
+      <input type="checkbox" id="doughbox">
+      <label for="doughbox">Has the dough been fed?</label>
+      <button onclick="buttonClick()">button</button>
+    </div>
+    <div class="right-sidebar"></div>
+    <div class="footerbar"></div>
+  </div>
+</body>
+</html>
